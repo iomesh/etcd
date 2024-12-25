@@ -489,6 +489,10 @@ func (sctx *serveCtx) registerPprof() {
 	for p, h := range debugutil.PProfHandlers() {
 		sctx.registerUserHandler(p, h)
 	}
+
+	for p, h := range debugutil.FGprofHandlers() {
+		sctx.registerUserHandler(p, h)
+	}
 }
 
 func (sctx *serveCtx) registerTrace() {

@@ -502,6 +502,11 @@ func mustHTTPListener(lg *zap.Logger, m cmux.CMux, tlsinfo *transport.TLSInfo, c
 			httpmux.Handle(p, h)
 		}
 		lg.Info("gRPC proxy enabled pprof", zap.String("path", debugutil.HTTPPrefixPProf))
+
+		for p, h := range debugutil.FGprofHandlers() {
+			httpmux.Handle(p, h)
+		}
+		lg.Info("gRPC proxy enabled fgprof", zap.String("path", debugutil.HTTPPrefixFGprof))
 	}
 	srvhttp := &http.Server{
 		Handler:  httpmux,
